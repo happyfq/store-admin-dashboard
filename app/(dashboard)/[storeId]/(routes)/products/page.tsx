@@ -30,7 +30,11 @@ const ProductsPage = async ({
     name: item.name,
     isFeatured: item.isFeatured,
     isArchived: item.isArchived,
+<<<<<<< HEAD
     price: formatter.format(item.price),
+=======
+    price: formatter.format(item.price.toNumber()),
+>>>>>>> 1a874b29a2c2072d801f2503b8233fd0ca812c6c
     category: item.category.name,
     size: item.size.name,
     color: item.color.value,

@@ -14,9 +14,7 @@ model Store {
   userId          String
   billboards      Billboard[] 
   categories      Category[] 
-  products        Product[]  
-  sizes           Size[]     
-  colors          Color[]    
+  products        Product[]   
   orders          Order[]    
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
@@ -60,10 +58,6 @@ model Product {
   price       Float
   isFeatured  Boolean   @default(false)
   isArchived  Boolean   @default(false)
-  sizeId      String    // Foreign Key to Size
-  size        Size      @relation(fields: [sizeId], references: [id])
-  colorId     String    // Foreign Key to Color
-  color       Color     @relation(fields: [colorId], references: [id])
   images      Image[]   // Relation to Image model
   orderItems  OrderItem[]   // Relation to Order model
   createdAt   DateTime  @default(now())
@@ -71,8 +65,6 @@ model Product {
 
   @@index([storeId])
   @@index([categoryId])
-  @@index([sizeId])
-  @@index([colorId])
 }
 
 model Order {
@@ -101,31 +93,6 @@ model OrderItem {
   @@index([productId])
 }
 
-model Size {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  storeId     String    // Foreign Key to Store
-  store       Store     @relation(fields: [storeId], references: [id])
-  name        String
-  value       String
-  products    Product[] // Relation to Product model
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-
-  @@index([storeId])
-}
-
-model Color {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  storeId     String   // Foreign Key to Store
-  store       Store    @relation(fields: [storeId], references: [id])
-  name        String
-  value       String
-  products    Product[] // Relation to Product model
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-
-  @@index([storeId])
-}
 
 model Image {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
